@@ -1,0 +1,25 @@
+[
+  {
+    "id": "ARUBA1",
+    "name": "Aruba Imaging Medical Center",
+    "status": "active",
+    "testDynamicsManager": "Test1",
+    "plan": "Plan1",
+    "country": "US"
+  },
+  {
+    "id": "DAVIDMC",
+    "name": "David MC",
+    "status": "active",
+    "testDynamicsManager": "Test2",
+    "plan": "Plan2"
+  },
+  {
+    "id": "MCMC1",
+    "name": "Mason Chase 1",
+    "status": "active",
+    "testDynamicsManager": "Test3",
+    "plan": "Plan2",
+    "country": "US"
+  }
+]

@@ -10,6 +10,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import theme from './theme';
 import { AuthProvider } from './hooks/useAuth';
+import { HospitalProvider } from './hooks/useHospital';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -20,7 +21,9 @@ root.render(
       <ThemeProvider theme={theme}>
         <BrowserRouter>
           <AuthProvider>
-            <App />
+            <HospitalProvider>
+              <App />
+            </HospitalProvider>
           </AuthProvider>
         </BrowserRouter>
       </ThemeProvider>

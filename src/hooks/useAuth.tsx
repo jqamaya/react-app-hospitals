@@ -8,7 +8,7 @@ import {
 } from "react";
 import { useNavigate } from "react-router-dom";
 
-import userData from '../user.json';
+import userData from '../data/user.json';
 import { useLocalStorage } from "./useLocalStorage";
 
 export interface LoginParams {
@@ -30,6 +30,7 @@ export interface Context {
   isLoading: boolean;
 	setLoading: (isLoading: boolean) => void,
 	login: (params: LoginParams) => void;
+	logout: () => void;
 }
 
 export const AuthContext = createContext({
@@ -60,8 +61,9 @@ export function AuthProvider({ children }: PropsWithChildren) {
 	}, [setUser]);
 
 	const logout = useCallback(() => {
+		setUser({});
     navigate('/', {replace: true});
-	}, [navigate]);
+	}, [navigate, setUser]);
 
 	const value = useMemo(
 		() => ({

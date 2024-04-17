@@ -11,13 +11,12 @@ type Params = {
 };
 
 function useGoogle({ onSuccess, onError }: Params) {
-  const { setUser, setLoading } = useAuth();
+  const { setUser } = useAuth();
 
   const [googleResponse, setGoogleResponse] = useState<TokenResponse | null>(null);
 
   useEffect(() => {
     if (googleResponse) {
-      setLoading(true);
       axios
         .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${googleResponse.access_token}`, {
           headers: {
@@ -26,7 +25,6 @@ function useGoogle({ onSuccess, onError }: Params) {
           }
         })
         .then((res) => {
-          setLoading(false);
           const data: GoogleUser = res.data;
           if (data) {
             setUser({
@@ -40,12 +38,11 @@ function useGoogle({ onSuccess, onError }: Params) {
           }
         })
         .catch((err) => {
-          setLoading(false);
           console.log(err)
           onError(err);
         });
     }
-  }, [googleResponse, setLoading, setUser, onSuccess, onError]);
+  }, [googleResponse, setUser, onSuccess, onError]);
 
   const handleSuccess = useCallback((codeResponse: TokenResponse) => {
     console.log({codeResponse})
@@ -53,7 +50,6 @@ function useGoogle({ onSuccess, onError }: Params) {
   }, [setGoogleResponse]);
 
   const handleError = (error: Pick<TokenResponse, 'error' | 'error_description' | 'error_uri'>) => {
-    setLoading(false);
     console.log({error})
     onError(error);
   };

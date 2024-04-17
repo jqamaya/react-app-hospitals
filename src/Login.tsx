@@ -8,7 +8,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
 
-import TextField from './components/TextField';
+import TextField from './components/InputField';
 import { Lock, Mail } from '@mui/icons-material';
 import useGoogle from './hooks/useGoogle';
 import GoogleButton from './components/GoogleButton';
@@ -22,6 +22,7 @@ function Login() {
     isLoading,
   } = useAuth();
 
+  const [isGoogleLoading, setGoogleLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
@@ -32,6 +33,7 @@ function Login() {
   });
 
   const onSuccess = useCallback(() => {
+    setGoogleLoading(false);
     navigate('/home');
   }, [navigate]);
 
@@ -45,6 +47,7 @@ function Login() {
 
   const onGoogleError = useCallback((err: string | object) => {
     console.log({err})
+    setGoogleLoading(false);
     setError({
       type: 'google',
       message: 'Error logging in with Google',
@@ -52,6 +55,11 @@ function Login() {
   }, [setError]);
 
   const { googleLogin } = useGoogle({ onSuccess, onError: onGoogleError });
+
+  const handleGoogleLogin = () => {
+    setGoogleLoading(true);
+    googleLogin();
+  };
 
   const handleLogin = useCallback(() => {
     setEmailError('');
@@ -113,7 +121,10 @@ function Login() {
                 {error.message}
               </Typography>
             )}
-            <GoogleButton isLoading={isLoading} onClick={() => googleLogin()} />
+            <GoogleButton
+              isLoading={isGoogleLoading}
+              onClick={handleGoogleLogin}
+            />
 
             <Box display="flex" alignItems="center" mt={3} mb={2} width="100%">
               <Box height="1px" bgcolor="text.disabled" flex={1} />
