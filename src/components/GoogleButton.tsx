@@ -25,7 +25,14 @@ export default function GoogleButton(props: Props) {
         ? <CircularProgress color='inherit' size="16px" />
         : <Google />
       }
-      <Typography variant='body1' ml={1} py={1} textTransform="none" fontWeight="500">
+      <Typography
+        variant='body1'
+        ml={1}
+        py={1}
+        textTransform="none"
+        fontWeight="500"
+        sx={{ color: 'common.black' }}
+      >
         Continue with Google
       </Typography>
     </Button>
