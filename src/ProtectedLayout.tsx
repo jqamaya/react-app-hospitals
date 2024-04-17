@@ -12,9 +12,9 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import { ArrowDropDown } from "@mui/icons-material";
 
 import { useAuth } from "./hooks/useAuth";
-import { ArrowDropDown } from "@mui/icons-material";
 
 export const ProtectedLayout = () => {
   const { user, logout } = useAuth();
@@ -23,11 +23,11 @@ export const ProtectedLayout = () => {
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+  const handleOpenMgmtMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseMgmtMenu = () => {
     setAnchorElUser(null);
   };
 
@@ -35,7 +35,8 @@ export const ProtectedLayout = () => {
     {
       title: 'Manage Hospitals',
       onClick: () => {
-        navigate('/hospitals')
+        navigate('/hospitals');
+        handleCloseMgmtMenu();
       },
     }
   ];
@@ -74,7 +75,7 @@ export const ProtectedLayout = () => {
             <Box sx={{ alignItems: 'flex-end' }}>
               <Tooltip title="Management">
                 <Button
-                  onClick={handleOpenUserMenu}
+                  onClick={handleOpenMgmtMenu}
                   endIcon={<ArrowDropDown />}
                   sx={{ p: 0, color: 'common.white' }}
                 >
@@ -95,7 +96,7 @@ export const ProtectedLayout = () => {
                   horizontal: 'right',
                 }}
                 open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
+                onClose={handleCloseMgmtMenu}
               >
                 {managementMenu.map((setting) => (
                   <MenuItem key={setting.title} onClick={setting.onClick}>

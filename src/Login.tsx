@@ -13,6 +13,7 @@ import { Lock, Mail } from '@mui/icons-material';
 import useGoogle from './hooks/useGoogle';
 import GoogleButton from './components/GoogleButton';
 import PrimaryButton from './components/PrimaryButton';
+import useCheckMobileScreen from './hooks/useCheckMobile';
 
 function Login() {
   const { palette } = useTheme();
@@ -21,6 +22,7 @@ function Login() {
     login,
     isLoading,
   } = useAuth();
+  const isMobile = useCheckMobileScreen();
 
   const [isGoogleLoading, setGoogleLoading] = useState(false);
   const [email, setEmail] = useState('');
@@ -91,7 +93,7 @@ function Login() {
           width="100%"
           height="100vh"
         >
-          <Box style={{ flex: 1 }}>
+          <Box {...!isMobile && { flex: 1 }}>
             <Box
               component="img"
               src="https://picsum.photos/seed/picsum/700/900"
@@ -106,7 +108,7 @@ function Login() {
             flexDirection="column"
             justifyContent="center"
             maxWidth="300px"
-            mx="20%"
+            mx={{ xs: '10%', sm: "20%" }}
           >
             <Typography variant='h4' mb={3} textAlign="left" fontWeight="600">
               Sign in via SSO
