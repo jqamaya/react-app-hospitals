@@ -1,7 +1,5 @@
 import {
-	Dispatch,
 	PropsWithChildren,
-	SetStateAction,
 	createContext,
 	useCallback,
 	useContext,
@@ -59,7 +57,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
       setLoading(false);
       onError('login error');
     }, 3000);
-	}, []);
+	}, [setUser]);
 
 	const logout = useCallback(() => {
     navigate('/', {replace: true});
